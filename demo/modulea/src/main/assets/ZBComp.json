@@ -1,0 +1,17 @@
+{
+  "components":[
+    {
+      "name":"ZBCompMain",
+      "clazz":"com.zb.mest.comp.ZBCompMain"
+    },
+    {
+      "name":"ZBCompCore",
+      "clazz":"com.zb.zbcompcore.comp.ZBCoreComp"
+    },
+    {
+      "name":"ZBCompPlay",
+      "clazz":"com.zb.zbcompplay.comp.ZBPlayComp"
+    }
+  ]
+}
+

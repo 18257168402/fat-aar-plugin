@@ -1,0 +1,56 @@
+
+buildscript {
+    repositories {
+            maven{ url 'https://maven.aliyun.com/repository/google'}
+            maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+            maven{ url 'https://maven.aliyun.com/nexus/content/groups/public'}
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:3.0.1'
+            classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        }
+}
+repositories {
+     maven{ url 'https://maven.aliyun.com/repository/google'}
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+        maven{ url 'https://maven.aliyun.com/nexus/content/groups/public'}
+        maven { url 'https://jitpack.io' }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
+
+repositories {
+    google()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+//    compile 'com.android.tools.build:gradle:2.3.0'
+    compile 'com.squareup:javapoet:1.8.0'
+    compile 'org.jooq:joor:0.9.6'
+    compile 'com.android.tools.build:gradle:3.1.4'
+}
+
+
+version = "0.0.1"
+group = 'com.zb'
+archivesBaseName = 'fat-aar-plugin'
+repositories.mavenCentral()
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: 'file:../repo')
+    }
+}

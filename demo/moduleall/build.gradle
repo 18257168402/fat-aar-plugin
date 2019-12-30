@@ -1,0 +1,56 @@
+import org.w3c.dom.Element
+
+apply plugin: 'com.android.library'
+//apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        //applicationId "com.zb.flataar"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions ""
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs './libs' //共享的一些aar库存放路径
+    }
+}
+
+apply plugin: 'com.zb.fat-aar'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    def dep=project(path:":modulea");
+    embed dep;
+    embed project(":modulejni")
+    embed "com.alibaba:fastjson:1.1.60.android"
+}
+
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: 'file:../../repo')
+        pom.groupId = "com.zb.flat"
+        pom.artifactId = "all"
+        pom.version= "1.0"
+
+        publishFatAAR(pom)
+    }
+}
